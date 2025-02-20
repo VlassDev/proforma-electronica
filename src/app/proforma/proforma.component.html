@@ -1,0 +1,274 @@
+
+<style>
+    input, textarea, ::placeholder {
+        font-family: Akshar;
+        font-weight: 300;
+    }
+
+    .color-requerid {
+        color: red
+    }
+    ._title{
+        font-size: 30px;
+        color: #1b4642
+    }
+</style>
+
+<main class="mb-5">
+
+    <div class="d-flex flex-row align-items-center _title">
+        <i class="bi bi-file-earmark-medical"></i>
+        <span class="mx-3 fs-4">Generar Proforma</span>
+    </div>
+
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Registrar productos
+            </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+
+                    <div class="my-3 shadow border rounded px-4 py-4">
+                
+                        <section class="row">
+                           
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="count" class="form-label ">Cantidad <span class="color-requerid">*</span></label>
+                                    <input type="number" class="form-control" id="count" [(ngModel)]="productForm.count" (ngModelChange)="calcularTotal()">
+                                </div>
+                            </div>
+                    
+                            <!-- Precio unitario -->
+                            <div class="col-md-4">
+                                <label for="priceU" class="form-label ">Precio Unitario <span class="color-requerid">*</span></label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="priceU">$</span>
+                                    <input type="number" class="form-control" aria-describedby="priceU" [(ngModel)]="productForm.priceU" (ngModelChange)="calcularTotal()">
+                                </div>
+                            </div>
+                            
+                            <!-- Precio total -->
+                            <div class="col-md-4">
+                                <label for="priceT" class="form-label ">Precio Total</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="priceT">$</span>
+                                    <input type="number" class="form-control" aria-describedby="priceT" disabled [(ngModel)]="productForm.priceT" >
+                                </div>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <label for="description" class="form-label ">Descripción <span class="color-requerid">*</span></label>
+                                <textarea class="form-control" id="description" rows="3" placeholder="Ingrese descripción del producto..." [(ngModel)]="productForm.description"></textarea>
+                            </div>
+                    
+                        </section>
+                    
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-outline-primary w-100 " (click)="guardar_productos_local()">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              Ajustes
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+
+
+                <section class="py-3 row justify-content-center align-items-end">
+       
+                    <div class="col-md-4">
+            
+                        <div>
+                            <label for="issueDate" class="form-label ">Fecha de emisión <span class="color-requerid">*</span> | Fecha de vencimiento</label>
+                            <div class="input-group">
+                                <input required="true" type="date" aria-label="issueDate" class="form-control" [(ngModel)]="issueDate">
+                                <input type="date" aria-label="expirationDate" class="form-control" [(ngModel)]="expirationDate">
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="col-md-4 mt-3">
+                        <div class="">
+                            <label for="expirationDate" class="form-label ">Cliente <span class="color-requerid">*</span></label>
+                            <select class="form-select" [(ngModel)]="clientId">
+                                <option value="" disabled>Seleccione cliente</option>
+                                <option value={{client.id}} *ngFor="let client of clients">{{client.name}}</option>
+                              </select>
+                        </div>
+                    </div>
+            
+                    
+
+            
+                    <div class="col-md-4 mt-3">
+                        <button type="button" class="btn btn-primary w-100">
+                            <div class="d-flex justify-content-center gap-3" (click)="generar_proforma()">
+                                <i class="bi bi-download"></i>
+                                <span class="">Descargar PDF</span>
+                            </div>
+                        </button>
+                    </div>
+                 
+                </section>
+
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+
+
+    <section class="mt-4">
+
+        <div class="table-responsive-xxl" style="max-height: 900px" *ngIf="products">
+            <table class="table table-sm caption-top table-hover">
+                <caption class="">Lista de productos</caption>
+                <thead class="table-secondary" style="position: sticky; top: 0; z-index: 100;">
+                  <tr class=""> 
+                    <th scope="col" class="text-center" style=" color: #1d6860">Opciones</th>
+                    <th scope="col">#</th>
+                    <th scope="col" class="text-center">Cantidad</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col" class="text-center">Precio Unitario</th>
+                    <th scope="col" class="text-end">Precio Total</th>
+                  </tr>
+                </thead>
+                <tbody class="">
+                  <tr *ngFor="let product of products; let i = index">
+                      <td class="text-center">
+                        <button  class="btn mx-2" style="margin: 0px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#editar">
+                            <i (click)="mostrar_producto_editar(product.id)" class="bi bi-pencil-square text-primary"></i>
+                        </button>
+                        <button class="btn mx-2" style="margin: 0px; padding: 0px;" data-bs-toggle="modal" data-bs-target="#eliminar">
+                            <i (click)="productId = product.id" class="bi bi-trash3 text-danger"></i>
+                        </button>
+                    </td>
+                    <th >{{ i + 1 }}</th>
+                    <td class="text-center">{{product.count}}</td>
+                    <td>{{product.description}}</td>
+                    <td class="text-center">{{product.priceU?.toFixed(2)}}</td>
+                    <td class="text-end">{{product.priceT.toFixed(2)}}</td>
+                  </tr>
+                  <tr *ngIf="products.length === 0">
+                    <td colspan="10" class="text-center" style="color: orangered;">No hay datos para mostrar</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex flex-column align-items-end fw-bold">
+            <div class="d-flex gap-3 px-2" style="color:#656565">
+                <span class=""> GRAVADO: </span>
+                <span class=""> S/. {{impuesto.subtotal.toFixed(2)}} </span>
+            </div>
+            <div class="d-flex gap-3 px-2" style="color:#656565">
+                <span class=""> {{impuesto.tipoImpuesto}} ({{impuesto.porcentajeImpuesto}}%) </span>
+                <span class=""> S/. {{impuesto.impuesto.toFixed(2)}} </span>
+            </div>
+            <div class="d-flex gap-3 p-2" style="background-color: #1f8276; color: #f2fbf9">
+                <span class=""> TOTAL: </span>
+                <span class=""> S/. {{impuesto.total.toFixed(2)}} </span>
+            </div>
+        </div>
+
+    </section>
+
+
+
+</main>
+
+
+<!-- Modal Elimianr -->
+<div class="modal fade" id="editar"  data-bs-backdrop="static" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editarLabel">Editar producto</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cancelar_editar_producto()"></button>
+        </div>
+        <div class="modal-body">
+            
+            <div autocomplete="off">
+
+                <div class="mb-3">
+                    <label for="countEdit" class="form-label ">Cantidad *</label>
+                    <input type="number" class="form-control" id="countEdit" [(ngModel)]="productEdit.count" (ngModelChange)="calcularTotalEdit()">
+                </div>
+
+                <div class="">
+                    <label for="unitPriceEdit" class="form-label ">Precio Unitario *</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="unitPriceEdit">$</span>
+                        <input type="number" class="form-control" aria-describedby="unitPriceEdit" [(ngModel)]="productEdit.priceU" (ngModelChange)="calcularTotalEdit()">
+                    </div>
+                </div>
+
+                <div class="">
+                    <label for="totalPriceEdit" class="form-label ">Precio Total</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="totalPriceEdit">$</span>
+                        <input type="number" class="form-control" aria-describedby="totalPriceEdit" disabled [(ngModel)]="productEdit.priceT" >
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label ">Descripción *</label>
+                    <textarea class="form-control" id="description" rows="3" placeholder="Ingrese descripción del producto..." [(ngModel)]="productEdit.description"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="cancelar_editar_producto()" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="editar_producto()" data-bs-dismiss="modal">Guardar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Elimianr -->
+<div class="modal fade" id="eliminar"  data-bs-backdrop="static" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="d-flex justify-content-end m-3">
+            <!-- <h1 class="modal-title fs-5" id="eliminarLabel">Eliminar producto</h1> -->
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body  fs-5 text-center">
+            <div>
+                <i class="bi bi-exclamation-circle fs-1 text-danger"></i> <br>
+                <span class="text-danger">¿Estás seguro de que quieres eliminar este producto?</span> <br>
+                Esta acción no se puede deshacer
+            </div>
+
+        </div>
+        <div class="m-4 d-flex justify-content-end gap-3">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-outline-danger" (click)="eliminar_producto()" data-bs-dismiss="modal">Eliminar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+

@@ -219,7 +219,7 @@ const generatePDF = (
     styles,
     footer: () => {
       return {
-        text: `Total de alumnos con deuda: ..`,
+        text: `Todos los derechos reservados VlassCode :'v`,
         alignment: 'right',
         margin: [10, 10],
         italics: true,

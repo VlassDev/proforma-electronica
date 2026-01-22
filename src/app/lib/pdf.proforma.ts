@@ -18,6 +18,9 @@ const generatePDF = (
   fechaVencimiento: string | null,
   client: Client
 ) => {
+  const formatMoney = (value: number | null) =>
+    `S/. ${(value ?? 0).toFixed(2)}`;
+
   const tableBody = [
     [
       { text: 'Cantidad', style: 'tableHeader' },
@@ -28,8 +31,10 @@ const generatePDF = (
     ...products.map((product) => [
       product.count.toString(),
       product.description,
-      `$ ${product.priceU}`,
-      `$ ${product.priceT}`,
+      `${formatMoney(product.priceU)}`,
+      `${formatMoney(product.priceT)}`,
+      // `S/. ${product.priceU}`,
+      // `S/. ${product.priceT}`,
     ]),
   ];
 
@@ -97,7 +102,7 @@ const generatePDF = (
         stack: [
           { text: 'Cliente', style: 'title' },
           { text: `Nombre: ${client.name}` },
-          { text: `DOC.: ${client.doc}` },
+          { text: `RUC: ${client.doc}` },
           { text: `Teléfono 1: ${client.phone1}` },
           { text: `Teléfono 2: ${client.phone2}` },
           { text: `Dirección: ${client.address}` },
@@ -124,18 +129,20 @@ const generatePDF = (
       { text: '', width: '*' },
       {
         stack: [
+          // {
+          //   text: `SUBTOTAL: S/. ${subtotal}`,
+          //   alignment: 'right',
+          //   margin: [0, 0, 0, 0],
+          // },
+          // {
+          //   text: `I.V.A: $ ${impuesto}`,
+          //   alignment: 'right',
+          //   margin: [0, 0, 0, 0],
+          // },
+
           {
-            text: `GRAVADO: $ ${subtotal}`,
-            alignment: 'right',
-            margin: [0, 0, 0, 0],
-          },
-          {
-            text: `I.V.A: $ ${impuesto}`,
-            alignment: 'right',
-            margin: [0, 0, 0, 0],
-          },
-          {
-            text: `TOTAL: $ ${total}`,
+            // text: `TOTAL: S/. ${total}`,
+            text: `TOTAL: ${formatMoney(subtotal)}`,
             style: 'total',
             alignment: 'right',
             margin: [0, 5, 0, 0],

@@ -1,11 +1,11 @@
 import { Company } from '../interfaces/company.interface';
 
 export const company: Company = {
-  name: 'La Nieve',
-  doc: '929292922222',
+  name: 'Sarmiento Ingenieros Constructores',
+  doc: '20611022566',
   description:
-    'Descripción de la empresa: A qué se dedica, qué hace y qué ofrece a sus clientes.',
-  phone1: '984537264',
-  phone2: '001-66621',
-  address: 'Av. Salvador N° 321, Santiago Chile',
+    'Consultoria, ejecución de obras - venta de materiales de construcción y ferretería en general',
+  phone1: '914 999 548',
+  phone2: '967 910 553',
+  address: 'Jesús Nazareno - Huamanga - Ayacucho',
 };

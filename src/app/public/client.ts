@@ -33,4 +33,12 @@ export const client: Client[] = [
     phone2: 'No tiene',
     address: 'Calle Innovación 789, Bogotá, Colombia',
   },
+  {
+    id: 5,
+    name: 'Municipalidad distrital de Carapo',
+    doc: '20175164937',
+    phone1: 'No tiene',
+    phone2: 'No tiene',
+    address: 'Plaza de Armas sin número (Palacio Municipal)',
+  },
 ];

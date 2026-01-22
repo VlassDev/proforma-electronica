@@ -47,7 +47,7 @@ const generatePDF = (
 
   content.push({
     columns: [
-      { image: variable64.miVar, width: 60 },
+      { image: variable64.miVar, width: 80 },
       {
         text: company.description,
         style: 'descripcion',
@@ -68,7 +68,7 @@ const generatePDF = (
     ],
   });
 
-  content.push({ text: '\n' });
+  // content.push({ text: '\n' });
   content.push({
     canvas: [
       {

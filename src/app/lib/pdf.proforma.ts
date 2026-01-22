@@ -25,8 +25,8 @@ const generatePDF = (
     [
       { text: 'Cantidad', style: 'tableHeader' },
       { text: 'Descripción', style: 'tableHeader' },
-      { text: 'Precio Unitario', style: 'tableHeader' },
-      { text: 'Precio Total', style: 'tableHeader' },
+      { text: 'Precio Unitario', style: 'tableHeader', noWrap: true },
+      { text: 'Precio Total', style: 'tableHeader', noWrap: true },
     ],
     ...products.map((product) => [
       product.count.toString(),

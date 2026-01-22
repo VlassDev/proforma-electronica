@@ -16,7 +16,7 @@ const generatePDF = (
   total: number,
   fechaEmision: string | null,
   fechaVencimiento: string | null,
-  client: Client
+  client: Client,
 ) => {
   const formatMoney = (value: number | null) =>
     `S/. ${(value ?? 0).toFixed(2)}`;
@@ -40,7 +40,7 @@ const generatePDF = (
 
   const totalGeneral = products.reduce(
     (sum, product) => sum + product.priceT,
-    0
+    0,
   );
 
   const content: any[] = [];
@@ -51,6 +51,8 @@ const generatePDF = (
       {
         text: company.description,
         style: 'descripcion',
+        alignment: 'center',
+        fontSize: 9,
       },
       {
         stack: [
@@ -136,18 +138,18 @@ const generatePDF = (
           {
             text: [{ text: 'RUC: ' }, { text: client.doc, italics: true }],
           },
-          {
-            text: [
-              { text: 'Teléfono 1: ' },
-              { text: client.phone1, italics: true },
-            ],
-          },
-          {
-            text: [
-              { text: 'Teléfono 2: ' },
-              { text: client.phone2, italics: true },
-            ],
-          },
+          // {
+          //   text: [
+          //     { text: 'Teléfono 1: ' },
+          //     { text: client.phone1, italics: true },
+          //   ],
+          // },
+          // {
+          //   text: [
+          //     { text: 'Teléfono 2: ' },
+          //     { text: client.phone2, italics: true },
+          //   ],
+          // },
           {
             text: [
               { text: 'Dirección: ' },

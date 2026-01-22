@@ -35,10 +35,10 @@ export const client: Client[] = [
   },
   {
     id: 5,
-    name: 'Municipalidad Distrital de Carapo',
+    name: 'MUNICIPALIDAD DISTRITAL DE CARAPO',
     doc: '20175164937',
-    phone1: 'No tiene',
-    phone2: 'No tiene',
-    address: 'Plaza de Armas sin número (Palacio Municipal)',
+    // phone1: '------',
+    // phone2: '------',
+    address: 'PLAZA DE ARMAS N° S/N (PALACIO MUNICIPAL)',
   },
 ];

@@ -47,7 +47,7 @@ const generatePDF = (
 
   content.push({
     columns: [
-      { image: variable64.miVar, width: 80 },
+      { image: variable64.miVar, width: 60 },
       {
         text: company.description,
         style: 'descripcion',
@@ -89,11 +89,40 @@ const generatePDF = (
       {
         stack: [
           { text: 'Vendedor', style: 'title' },
-          { text: `Razón Social: ${company.name}` },
-          { text: `RUC: ${company.doc}` },
-          { text: `Teléfono 1: ${company.phone1}` },
-          { text: `Teléfono 2: ${company.phone2}` },
-          { text: `Dirección: ${company.address}` },
+          {
+            text: [
+              { text: 'Razón Social: ' },
+              { text: company.name, italics: true },
+            ],
+          },
+
+          {
+            text: [{ text: 'RUC: ' }, { text: company.doc, italics: true }],
+          },
+          {
+            text: [
+              { text: 'Teléfono 1: ' },
+              { text: company.phone1, italics: true },
+            ],
+          },
+          {
+            text: [
+              { text: 'Teléfono 2: ' },
+              { text: company.phone2, italics: true },
+            ],
+          },
+          {
+            text: [
+              { text: 'Dirección: ' },
+              { text: company.address, italics: true },
+            ],
+          },
+
+          // { text: `Razón Social: ${company.name}` },
+          // { text: `RUC: ${company.doc}` },
+          // { text: `Teléfono 1: ${company.phone1}` },
+          // { text: `Teléfono 2: ${company.phone2}` },
+          // { text: `Dirección: ${company.address}` },
         ],
         alignment: 'lift',
       },
@@ -101,11 +130,36 @@ const generatePDF = (
       {
         stack: [
           { text: 'Cliente', style: 'title' },
-          { text: `Nombre: ${client.name}` },
-          { text: `RUC: ${client.doc}` },
-          { text: `Teléfono 1: ${client.phone1}` },
-          { text: `Teléfono 2: ${client.phone2}` },
-          { text: `Dirección: ${client.address}` },
+          {
+            text: [{ text: 'Nombre: ' }, { text: client.name, italics: true }],
+          },
+          {
+            text: [{ text: 'RUC: ' }, { text: client.doc, italics: true }],
+          },
+          {
+            text: [
+              { text: 'Teléfono 1: ' },
+              { text: client.phone1, italics: true },
+            ],
+          },
+          {
+            text: [
+              { text: 'Teléfono 2: ' },
+              { text: client.phone2, italics: true },
+            ],
+          },
+          {
+            text: [
+              { text: 'Dirección: ' },
+              { text: client.address, italics: true },
+            ],
+          },
+
+          // { text: `Nombre: ${client.name}` },
+          // { text: `RUC: ${client.doc}` },
+          // { text: `Teléfono 1: ${client.phone1}` },
+          // { text: `Teléfono 2: ${client.phone2}` },
+          // { text: `Dirección: ${client.address}` },
         ],
       },
     ],

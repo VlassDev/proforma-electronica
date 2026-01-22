@@ -176,7 +176,7 @@ export class ProformaComponent implements OnInit {
 
   public generar_proforma() {
     const products: Product[] = this.obtenerProductos();
-    const reciboNo = 'A-0000001';
+    const reciboNo = '00001';
 
     // Fecha actual
     this.issueDate !== null

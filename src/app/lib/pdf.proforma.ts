@@ -145,24 +145,24 @@ const generatePDF = (
     ],
   });
 
-  content.push({
-    columns: [
-      {
-        stack: [
-          {
-            text: 'USUARIO: Juan Luis Guerra',
-          },
-          {
-            text: 'COND. DE PAGO: Transferencia bancaria',
-          },
-          {
-            text: 'CUENTAS BANCARIAS: BBVA: 1234567898766, CCP:234345222',
-          },
-        ],
-        absolutePosition: { x: 40, y: 750 },
-      },
-    ],
-  });
+  // content.push({
+  //   columns: [
+  //     {
+  //       stack: [
+  //         {
+  //           text: 'USUARIO: Juan Luis Guerra',
+  //         },
+  //         {
+  //           text: 'COND. DE PAGO: Transferencia bancaria',
+  //         },
+  //         {
+  //           text: 'CUENTAS BANCARIAS: BBVA: 1234567898766, CCP:234345222',
+  //         },
+  //       ],
+  //       absolutePosition: { x: 40, y: 750 },
+  //     },
+  //   ],
+  // });
 
   const styles = {
     header: {
@@ -217,16 +217,16 @@ const generatePDF = (
     },
     content,
     styles,
-    footer: () => {
-      return {
-        text: `Todos los derechos reservados VlassCode :'v`,
-        alignment: 'right',
-        margin: [10, 10],
-        italics: true,
-        fontSize: 9,
-        color: 'gray',
-      };
-    },
+    // footer: () => {
+    //   return {
+    //     text: `Todos los derechos reservados VlassCode :'v`,
+    //     alignment: 'right',
+    //     margin: [10, 10],
+    //     italics: true,
+    //     fontSize: 9,
+    //     color: 'gray',
+    //   };
+    // },
   };
 
   pdfMake.createPdf(docDefinition).open();
